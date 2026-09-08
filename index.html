@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catur Satriya Wardoyo — Data Analysis & Quantitative Research</title>
+<meta name="description" content="Portfolio of Catur Satriya Wardoyo, fresh Mathematics graduate from Universitas Padjadjaran — quantitative research, data analysis, and field research.">
+<meta property="og:title" content="Catur Satriya Wardoyo — Data Analysis & Quantitative Research">
+<meta property="og:description" content="Portfolio of quantitative research, data analysis, and field research — fresh Mathematics graduate from Unpad.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#16211E">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          paper: '#EEF0EA',
+          ink: '#1B211D',
+          muted: '#5B6259',
+          line: '#D2D7CA',
+          brass: '#8C6A2E',
+          brasslight: '#A8823D',
+          pine: '#3F6B57',
+          slateaccent: '#43566C',
+          darkbg: '#12181A',
+          darksurface: '#1A211D',
+          darktext: '#E9E6DB',
+          darkmuted: '#9CA79B',
+          darkline: '#2B342E',
+          brassdark: '#D8B876',
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+
+  .grid-texture {
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
+
+  .ledger-card { border: 1px solid var(--line-color, #D2D7CA); }
+
+  ::selection { background: #A8823D; color: #EEF0EA; }
+
+  @media print {
+    nav, .no-print, .fab-stack, .filter-bar { display: none !important; }
+    body { background: #fff !important; color: #111 !important; }
+    section { break-inside: avoid; }
+    .print-force-light { background: #fff !important; color: #111 !important; border-color: #ccc !important; }
+  }
+</style>
+</head>
+
+<body class="bg-paper text-ink dark:bg-darkbg dark:text-darktext transition-colors duration-300"
+      x-data="portfolioApp()" x-init="init()">
+
+<!-- Scroll progress -->
+<div class="fixed top-0 left-0 h-[3px] bg-brass dark:bg-brassdark z-[70] transition-[width] duration-150"
+     :style="`width: ${scrollPct}%`"></div>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-[60] border-b border-line dark:border-darkline bg-paper/90 dark:bg-darkbg/90 backdrop-blur-sm no-print">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <span class="w-9 h-9 border border-ink dark:border-darktext flex items-center justify-center font-serif text-sm">CSW</span>
+      <span class="hidden sm:block text-sm text-muted dark:text-darkmuted">Catur Satriya Wardoyo</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-7 text-sm">
+      <a href="#about" class="hover:text-brass dark:hover:text-brassdark transition">About</a>
+      <a href="#projects" class="hover:text-brass dark:hover:text-brassdark transition">Projects</a>
+      <a href="#experience" class="hover:text-brass dark:hover:text-brassdark transition">Experience</a>
+      <a href="#leadership" class="hover:text-brass dark:hover:text-brassdark transition">Leadership</a>
+      <a href="#contact" class="hover:text-brass dark:hover:text-brassdark transition">Contact</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button @click="darkMode = !darkMode" aria-label="Toggle theme" class="w-9 h-9 flex items-center justify-center border border-line dark:border-darkline hover:border-brass dark:hover:border-brassdark transition">
+        <i data-lucide="sun" class="w-4 h-4" x-show="darkMode"></i>
+        <i data-lucide="moon" class="w-4 h-4" x-show="!darkMode"></i>
+      </button>
+      <a href="https://bit.ly/CV_CaturSatriyaWardoyo" target="_blank"
+         class="hidden sm:flex items-center gap-2 bg-ink text-paper dark:bg-brassdark dark:text-darkbg px-5 py-2.5 text-sm font-medium hover:opacity-85 transition">
+        <i data-lucide="file-down" class="w-4 h-4"></i> Download CV
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="top" class="relative pt-40 pb-24 border-b border-line dark:border-darkline overflow-hidden">
+  <div class="absolute inset-0 grid-texture text-ink/[0.05] dark:text-darktext/[0.06] pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative"
+       x-show="heroLoaded" x-transition:enter="transition ease-out duration-700"
+       x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+
+    <div class="inline-flex items-center gap-2 text-xs text-muted dark:text-darkmuted border border-line dark:border-darkline px-3 py-1.5 mb-8">
+      <span class="w-1.5 h-1.5 rounded-full bg-pine dark:bg-brassdark"></span>
+      Open to Work Opportunities
+    </div>
+
+    <h1 class="font-serif max-w-4xl leading-[1.1] mb-6">
+    <!-- Tulisan PORTOFOLIO dibuat lebih besar (text-6xl sampai text-8xl) -->
+    <span class="block text-6xl md:text-8xl font-bold tracking-tight mb-2">
+      PORTOFOLIO
+    </span>
+
+    <!-- Nama Catur Satriya Wardoyo -->
+    <span class="block text-3xl md:text-5xl mb-2">
+      Catur Satriya Wardoyo
+    </span>
+
+    <!-- Dibuat sedikit lebih proporsional & nowrap agar dipaksa satu baris memanjang -->
+    <span class="block text-2xl md:text-4xl text-neutral-700 whitespace-nowrap">
+      Data Analysis & Quantitative Research
+    </span>
+    </h1>
+
+    <p class="max-w-xl text-muted dark:text-darkmuted text-base md:text-lg leading-relaxed mb-10">
+      Fresh Mathematics Graduate from Padjadjaran University. Experienced in turning social,
+      environmental, and financial field data into technical reports, risk matrices, and
+      statistical models ready for decision-making.
+    </p>
+
+    <div class="flex flex-wrap items-center gap-4 mb-16">
+      <a href="#contact" class="bg-ink text-paper dark:bg-brassdark dark:text-darkbg px-6 py-3 text-sm font-medium hover:opacity-85 transition">
+        Get In Touch
+      </a>
+      <a href="https://bit.ly/CV_CaturSatriyaWardoyo" target="_blank" class="flex items-center gap-2 border border-ink dark:border-darktext px-6 py-3 text-sm font-medium hover:border-brass dark:hover:border-brassdark transition">
+        <i data-lucide="file-down" class="w-4 h-4"></i> Download CV
+      </a>
+    </div>
+
+    <!-- stats ledger row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 border-t border-line dark:border-darkline">
+      <template x-for="(s, idx) in stats" :key="idx">
+        <div class="py-5 pr-6" :class="idx > 0 ? 'md:border-l border-line dark:border-darkline md:pl-6' : ''">
+          <div class="font-mono text-2xl md:text-3xl" x-text="s.value"></div>
+          <div class="text-xs text-muted dark:text-darkmuted mt-1" x-text="s.label"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 border-b border-line dark:border-darkline">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-5 gap-14">
+    <div class="lg:col-span-3">
+      <h2 class="font-serif text-3xl mb-6">About Me</h2>
+      <p class="text-muted dark:text-darkmuted leading-relaxed mb-4">
+        I'm a Mathematics graduate from Universitas Padjadjaran with a focus on applied statistics
+        and quantitative finance. Throughout university, I spent more time in the field and in
+        student organizations than behind a desk mapping social conflict in an energy company's
+        operational area, researching proboscis monkey populations in South Kalimantan, and
+        managing data for 50+ organization members.
+      </p>
+      <p class="text-muted dark:text-darkmuted leading-relaxed mb-4">
+        This background means I'm used to working with messy data survey responses, interview
+        transcripts, and field coordinates and turning it into something decision-ready: risk
+        matrices, technical reports, and policy recommendations. Two of those recommendations made
+        it to a regional government's desk.
+      </p>
+      <p class="text-muted dark:text-darkmuted leading-relaxed">
+        I'm currently looking for a role in data analysis, quantitative research, or operations
+        particularly in finance, energy, or public policy.
+      </p>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <button @click="copyText('lspansa1304@gmail.com', 'Email')" class="flex items-center gap-2 text-sm border border-line dark:border-darkline px-4 py-2 hover:border-brass dark:hover:border-brassdark transition">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i> lspansa1304@gmail.com
+        </button>
+        <button @click="copyText('+6285601567650', 'Phone number')" class="flex items-center gap-2 text-sm border border-line dark:border-darkline px-4 py-2 hover:border-brass dark:hover:border-brassdark transition">
+          <i data-lucide="phone" class="w-3.5 h-3.5"></i> +62 856-0156-7650
+        </button>
+        <a href="https://www.linkedin.com/in/catursatriyawardoyo" target="_blank" class="flex items-center gap-2 text-sm border border-line dark:border-darkline px-4 py-2 hover:border-brass dark:hover:border-brassdark transition">
+          <i data-lucide="linkedin" class="w-3.5 h-3.5"></i> LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="border border-line dark:border-darkline p-7">
+        <div class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted mb-4">Education</div>
+        <div class="font-serif text-xl mb-1">Bachelor of Mathematics</div>
+        <div class="text-sm text-muted dark:text-darkmuted mb-4">Universitas Padjadjaran · Aug 2022 – Aug 2026</div>
+
+        <div class="grid grid-cols-2 gap-4 mb-5 font-mono text-lg">
+          <div>
+            <div>3.27<span class="text-sm text-muted dark:text-darkmuted">/4.00</span></div>
+            <div class="text-xs font-sans text-muted dark:text-darkmuted mt-0.5">GPA</div>
+          </div>
+          <div>
+            <div>550</div>
+            <div class="text-xs font-sans text-muted dark:text-darkmuted mt-0.5">TKBI Unpad</div>
+          </div>
+        </div>
+
+        <div class="border-t border-line dark:border-darkline pt-4">
+          <div class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted mb-2">Thesis</div>
+          <p class="text-sm italic leading-relaxed mb-2">
+            "Comparative Analysis of Post-Merger Financial Performance of PT XLSmart Telecom
+            Sejahtera Tbk Using the Analysis of Means (ANOM) Method"
+          </p>
+          <p class="text-xs text-muted dark:text-darkmuted">
+            Supervisors: Dwi Susanti, Dra., M.Si. & Prof. Dr. Sukono, MM., M.Si.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-24 border-b border-line dark:border-darkline">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-10">
+      <h2 class="font-serif text-3xl mb-3">Projects & Research</h2>
+    </div>
+
+    <div class="filter-bar flex flex-wrap gap-2 mb-10">
+      <template x-for="f in filters" :key="f.key">
+        <button @click="activeFilter = f.key"
+                class="text-sm px-4 py-2 border transition"
+                :class="activeFilter === f.key
+                  ? 'bg-ink text-paper border-ink dark:bg-brassdark dark:text-darkbg dark:border-brassdark'
+                  : 'border-line dark:border-darkline hover:border-brass dark:hover:border-brassdark'"
+                x-text="f.label"></button>
+      </template>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <template x-for="p in projects" :key="p.id">
+        <div x-show="activeFilter === 'all' || p.category === activeFilter"
+             @click="openProject(p)"
+             class="group border border-line dark:border-darkline p-6 cursor-pointer hover:border-brass dark:hover:border-brassdark transition relative">
+
+          <div class="w-8 h-1 mb-4" :style="`background:${p.color}`"></div>
+
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <h3 class="font-serif text-lg leading-snug" x-text="p.title"></h3>
+            <span x-show="p.status === 'pending'" class="shrink-0 text-[10px] border border-brass text-brass dark:border-brassdark dark:text-brassdark px-2 py-1">Details coming soon</span>
+          </div>
+
+          <div class="text-xs text-muted dark:text-darkmuted mb-3" x-text="p.categoryLabel + ' · ' + p.period"></div>
+          <p class="text-sm text-muted dark:text-darkmuted leading-relaxed mb-4" x-text="p.summary"></p>
+
+          <div class="flex flex-wrap gap-2">
+            <template x-for="t in p.tools" :key="t">
+              <span class="text-[11px] border border-line dark:border-darkline px-2 py-1" x-text="t"></span>
+            </template>
+          </div>
+
+          <div class="mt-4 text-sm text-brass dark:text-brassdark flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+            View details <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="py-24 border-b border-line dark:border-darkline">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl mb-12">Work Experience</h2>
+
+    <div class="space-y-0">
+      <template x-for="(e, idx) in experience" :key="e.title">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 py-7 border-t border-line dark:border-darkline">
+          <div class="md:col-span-2 font-mono text-sm text-muted dark:text-darkmuted" x-text="e.period"></div>
+          <div class="md:col-span-4">
+            <div class="font-serif text-lg" x-text="e.title"></div>
+            <div class="text-sm text-muted dark:text-darkmuted" x-text="e.org"></div>
+          </div>
+          <div class="md:col-span-6">
+            <ul class="text-sm text-muted dark:text-darkmuted space-y-1.5">
+              <template x-for="pt in e.points" :key="pt">
+                <li class="flex gap-2"><span class="text-brass dark:text-brassdark">—</span><span x-text="pt"></span></li>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership" class="py-24 border-b border-line dark:border-darkline">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl mb-12">Leadership & Organizations</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <template x-for="l in leadership" :key="l.title">
+        <div class="border border-line dark:border-darkline p-6">
+          <div class="text-xs font-mono text-muted dark:text-darkmuted mb-2" x-text="l.period"></div>
+          <div class="font-serif text-lg mb-1" x-text="l.title"></div>
+          <div class="text-sm text-brass dark:text-brassdark mb-3" x-text="l.org"></div>
+          <ul class="text-sm text-muted dark:text-darkmuted space-y-1.5">
+            <template x-for="pt in l.points" :key="pt">
+              <li class="flex gap-2"><span>—</span><span x-text="pt"></span></li>
+            </template>
+          </ul>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-24 border-b border-line dark:border-darkline">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl mb-12">Skills</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <template x-for="cat in skills" :key="cat.title">
+        <div>
+          <div class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted mb-4" x-text="cat.title"></div>
+          <div class="flex flex-wrap gap-2">
+            <template x-for="s in cat.items" :key="s">
+              <span class="text-sm border border-line dark:border-darkline px-3 py-1.5" x-text="s"></span>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards" class="py-24 border-b border-line dark:border-darkline">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="font-serif text-3xl mb-12">Awards & Certifications</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <template x-for="a in awards" :key="a.title">
+        <div class="border border-line dark:border-darkline p-5 flex gap-4 items-start">
+          <i :data-lucide="a.icon" class="w-5 h-5 text-brass dark:text-brassdark mt-0.5 shrink-0"></i>
+          <div>
+            <div class="text-sm font-medium leading-snug" x-text="a.title"></div>
+            <div class="text-xs text-muted dark:text-darkmuted mt-1" x-text="a.org"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-24 border-b border-line dark:border-darkline">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-14">
+    <div>
+      <h2 class="font-serif text-3xl mb-6">Let's Talk</h2>
+      <p class="text-muted dark:text-darkmuted leading-relaxed mb-8 max-w-md">
+        Open to full-time opportunities, analytical roles, and data-driven collaborations across diverse industries. 
+        Feel free to reach out via email, WhatsApp, or the contact form.
+      </p>
+      <div class="space-y-3">
+        <button @click="copyText('lspansa1304@gmail.com', 'Email')" class="w-full flex items-center justify-between border border-line dark:border-darkline px-5 py-3.5 hover:border-brass dark:hover:border-brassdark transition text-left">
+          <span class="flex items-center gap-3 text-sm"><i data-lucide="mail" class="w-4 h-4"></i> lspansa1304@gmail.com</span>
+          <i data-lucide="copy" class="w-3.5 h-3.5 text-muted dark:text-darkmuted"></i>
+        </button>
+        <button @click="copyText('+6285601567650', 'Phone number')" class="w-full flex items-center justify-between border border-line dark:border-darkline px-5 py-3.5 hover:border-brass dark:hover:border-brassdark transition text-left">
+          <span class="flex items-center gap-3 text-sm"><i data-lucide="phone" class="w-4 h-4"></i> +62 856-0156-7650</span>
+          <i data-lucide="copy" class="w-3.5 h-3.5 text-muted dark:text-darkmuted"></i>
+        </button>
+        <a href="https://www.linkedin.com/in/catursatriyawardoyo" target="_blank" class="w-full flex items-center justify-between border border-line dark:border-darkline px-5 py-3.5 hover:border-brass dark:hover:border-brassdark transition">
+          <span class="flex items-center gap-3 text-sm"><i data-lucide="linkedin" class="w-4 h-4"></i> linkedin.com/in/catursatriyawardoyo</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-muted dark:text-darkmuted"></i>
+        </a>
+      </div>
+    </div>
+
+    <form @submit.prevent="sendMail()" class="border border-line dark:border-darkline p-7 space-y-5">
+      <div>
+        <label class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted">Name</label>
+        <input x-model="form.name" required type="text" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark">
+      </div>
+      <div>
+        <label class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted">Your Email</label>
+        <input x-model="form.email" required type="email" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark">
+      </div>
+      <div>
+        <label class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted">Message</label>
+        <textarea x-model="form.message" required rows="4" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark"></textarea>
+      </div>
+      <button type="submit" class="bg-ink text-paper dark:bg-brassdark dark:text-darkbg px-6 py-3 text-sm font-medium hover:opacity-85 transition">
+        Send Message
+      </button>
+      <p class="text-xs text-muted dark:text-darkmuted">This button will open your email app with the message pre-filled.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted dark:text-darkmuted">
+    <div>© 2026 Catur Satriya Wardoyo</div>
+    <button @click="window.print()" class="no-print flex items-center gap-2 hover:text-brass dark:hover:text-brassdark transition">
+      <i data-lucide="printer" class="w-4 h-4"></i> Print / Save as PDF
+    </button>
+  </div>
+</footer>
+
+<!-- PROJECT MODAL -->
+<div x-show="modalOpen" x-cloak
+     x-transition:enter="transition ease-out duration-200"
+     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+     class="fixed inset-0 z-[80] flex items-center justify-center p-5 no-print">
+  <div class="fixed inset-0 bg-ink/70 dark:bg-black/70" @click="modalOpen = false"></div>
+
+  <div class="relative bg-paper dark:bg-darksurface border border-line dark:border-darkline max-w-xl w-full max-h-[85vh] overflow-y-auto p-8"
+       x-transition:enter="transition ease-out duration-250"
+       x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+
+    <div class="flex items-start justify-between mb-6">
+      <div class="text-xs uppercase tracking-wide" :style="`color:${activeProject.color}`" x-text="activeProject.categoryLabel"></div>
+      <button @click="modalOpen = false" class="text-muted dark:text-darkmuted hover:text-ink dark:hover:text-darktext"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+
+    <h3 class="font-serif text-2xl mb-1" x-text="activeProject.title"></h3>
+    <div class="text-sm text-muted dark:text-darkmuted mb-6" x-text="activeProject.period"></div>
+
+    <template x-if="activeProject.status === 'pending'">
+      <div class="border border-brass dark:border-brassdark p-5 text-sm text-muted dark:text-darkmuted">
+        This project's details are still being finalized — check back later, or ask directly via the contact form.
+      </div>
+    </template>
+
+    <template x-if="activeProject.status !== 'pending'">
+      <div class="space-y-5">
+        <div>
+          <div class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted mb-2">Context</div>
+          <p class="text-sm leading-relaxed" x-text="activeProject.context"></p>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted mb-2">My Role</div>
+          <p class="text-sm leading-relaxed" x-text="activeProject.role"></p>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted mb-2">Outcome</div>
+          <p class="text-sm leading-relaxed" x-text="activeProject.impact"></p>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted mb-2">Tools</div>
+          <div class="flex flex-wrap gap-2">
+            <template x-for="t in activeProject.tools" :key="t">
+              <span class="text-xs border border-line dark:border-darkline px-2 py-1" x-text="t"></span>
+            </template>
+          </div>
+        </div>
+        <a x-show="activeProject.link" :href="activeProject.link" target="_blank" class="inline-flex items-center gap-2 text-sm text-brass dark:text-brassdark pt-2">
+          Visit link <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </template>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div x-show="toast.visible" x-cloak
+     x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+     x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+     class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-ink text-paper dark:bg-brassdark dark:text-darkbg text-sm px-4 py-2.5 z-[90] no-print"
+     x-text="toast.message"></div>
+
+<!-- FAB -->
+<a href="https://wa.me/6285601567650" target="_blank"
+   class="fab-stack fixed bottom-6 right-6 z-40 w-12 h-12 bg-pine text-paper flex items-center justify-center hover:opacity-85 transition no-print" aria-label="WhatsApp">
+  <i data-lucide="message-circle" class="w-5 h-5"></i>
+</a>
+
+<script>
+function portfolioApp() {
+  return {
+    darkMode: false,
+    heroLoaded: false,
+    scrollPct: 0,
+    activeFilter: 'all',
+    modalOpen: false,
+    activeProject: {},
+    toast: { visible: false, message: '' },
+    form: { name: '', email: '', message: '' },
+
+    stats: [
+      { value: '50+', label: 'Organization members managed' },
+      { value: '8', label: 'Financial ratios analyzed (thesis)' },
+      { value: '4', label: 'Field research programs completed' },
+      { value: '2', label: 'Policy recommendations to regional governments' },
+    ],
+
+    filters: [
+      { key: 'all', label: 'All Projects' },
+      { key: 'finance', label: 'Quantitative Finance' },
+      { key: 'field', label: 'Field Research & GIS' },
+      { key: 'tech', label: 'Technology & Community Impact' },
+    ],
+
+    projects: [
+      {
+        id: 1, category: 'finance', categoryLabel: 'Quantitative Finance', color: '#8C6A2E',
+        title: 'ANOM Financial Performance Analysis | PT XLSmart Telecom Sejahtera Tbk', period: 'Thesis, 2026', status: 'done',
+        summary: 'Evaluated post-merger financial performance using the Analysis of Means (ANOM) statistical method across 8 financial ratios.',
+        context: 'A thesis analyzing whether PT XLSmart Telecom Sejahtera Tbk\'s merger disrupted short-term financial performance, examined through profitability, solvency, liquidity, and asset-efficiency ratios over 2021–2025.',
+        role: 'Designed the research methodology, processed financial statement data in Excel, and built a Python pipeline (SciPy, NumPy, Matplotlib) for normality testing and ANOM computation.',
+        impact: 'Found no significant deviation across all 8 ratios (α = 0.05) — showing financial performance remained stable despite the merger, countering the common assumption that mergers immediately disrupt financial health.',
+        tools: ['Python', 'Excel', 'Statistical Analysis'],
+      },
+      {
+        id: 2, category: 'finance', categoryLabel: 'Quantitative Finance', color: '#8C6A2E',
+        title: 'Hybrid ARIMAX–Neural Network Model', period: 'Independent research', status: 'done',
+        summary: 'Developed a hybrid forecasting model to predict Indonesia\'s CO₂ emissions.',
+        context: 'Independent research exploring the combination of a classical statistical model (ARIMAX) with a neural network to forecast national carbon emission trends.',
+        role: 'Built and tested the hybrid ARIMAX–Neural Network model.',
+        impact: 'Produced a forecasting model that combines ARIMAX\'s interpretability with a neural network\'s flexibility.',
+        tools: ['Python', 'Time Series Forecasting', 'Neural Network'],
+      },
+      {
+        id: 3, category: 'finance', categoryLabel: 'Quantitative Finance', color: '#8C6A2E',
+        title: 'Komunitas Uang Kita (KOMUNITA)', period: 'Period pending', status: 'pending',
+        summary: 'Involvement in a financial literacy community role and contribution details still being finalized.',
+        tools: [],
+      },
+      {
+        id: 4, category: 'field', categoryLabel: 'Field Research & GIS', color: '#3F6B57',
+        title: 'Social Mapping & Asset-Risk Matrix | Pertamina Hulu Rokan in Riau', period: 'Oct 2025 – Jul 2026', status: 'done',
+        summary: 'Social mapping and operational risk analysis for a CID program in Pertamina Hulu Rokan\'s operational area.',
+        context: 'As a contracted researcher, involved in a Community Involvement & Development (CID) program in PT Pertamina Hulu Rokan\'s operational area, Riau.',
+        role: 'Conducted social mapping and social conflict analysis, collected GPS-based field data, and produced reports combining statistical analysis with GIS mapping.',
+        impact: 'Delivered an Asset-Risk-CID Program Interfacing Matrix used to support the company\'s operational risk assessment.',
+        tools: ['GIS Mapping', 'Survey & FGD', 'Risk Assessment'],
+      },
+      {
+        id: 5, category: 'field', categoryLabel: 'Field Research & GIS', color: '#3F6B57',
+        title: 'Eksplorasi Nusantara 4.0 | Proboscis Monkey Research in South Kalimantan', period: 'Aug 2024', status: 'done',
+        summary: 'Conservation research on proboscis monkey populations in South Kalimantan.',
+        context: 'A Universitas Padjadjaran conservation research program in South Kalimantan, focused on proboscis monkey populations and habitat sustainability.',
+        role: 'Collected and processed field data, ensured dataset consistency and reliability, and served as lead author of the resulting scientific article.',
+        impact: 'The article contributed to a policy recommendation delivered to the local government.',
+        tools: ['Field Survey', 'Data Cleaning', 'Scientific Writing'],
+      },
+      {
+        id: 6, category: 'field', categoryLabel: 'Field Research & GIS', color: '#3F6B57',
+        title: 'Ekspedisi Padjadjaran #5 | Community Service in Labuan Bajo', period: 'Aug 2023', status: 'done',
+        summary: 'Community service and field research program in Labuan Bajo, West Manggarai.',
+        context: 'A Universitas Padjadjaran community service program in Labuan Bajo, East Nusa Tenggara.',
+        role: 'Authored two technical articles based on direct field research and observation.',
+        impact: 'Helped draft a policy recommendation presented to the Regent of West Manggarai.',
+        tools: ['Field Research', 'Policy Brief Writing'],
+      },
+      {
+        id: 7, category: 'tech', categoryLabel: 'Technology & Community Impact', color: '#43566C',
+        title: 'Ruang Sampah – EcoSmart | Tech-Based Waste Management Startup', period: 'Dec, 2024', status: 'done',
+        summary: 'A tech-based waste management startup pitch for a Ministry of Manpower program.',
+        context: 'Part of the Pengembangan Talenta Muda 2.1 program (Ministry of Manpower / BBPKK Bandung Barat) addressing Indonesia\'s low waste-management rate (only 63.3% managed, SIPSN KKLHK 2023 data).',
+        role: 'Built and launched the project website for service booking and real-time tracking, and co-developed the investor pitch materials: Business Model Canvas, financial projections, and exit strategy.',
+        impact: 'Presented directly to a panel of judges/mentors as part of a national talent development competition.',
+        tools: ['Business Model Canvas', 'Web Development', 'Financial Projection'],
+        link: 'https://ruangsampah.link.or.id',
+      },
+      {
+        id: 8, category: 'tech', categoryLabel: 'Technology & Community Impact', color: '#43566C',
+        title: 'FinTrack Premium', period: 'Independent project', status: 'done',
+        summary: 'A personal finance tracking application built on Google Sheets.',
+        context: 'An independent project to build a lightweight, accessible personal finance tracking tool.',
+        role: 'Built the application on top of Google Sheets, automated with Google Apps Script.',
+        impact: 'A functional personal finance tool usable for everyday tracking.',
+        tools: ['Google Apps Script', 'Google Sheets'],
+      },
+    ],
+
+    experience: [
+      {
+        period: '2025–2026', title: 'Researcher (Contract)', org: 'Enviro Strategic Indonesia in Riau, Indonesia',
+        points: [
+          'Conducted social mapping and social conflict analysis for a Community Involvement & Development (CID) program.',
+          'Collected GPS-based field data and compiled it into an Asset-Risk-CID Program Interfacing Matrix.',
+          'Produced technical reports combining statistical analysis with GIS mapping.',
+        ],
+      },
+      {
+        period: '2023', title: 'Talent Development Program Participant', org: 'Gelanggang Inovasi dan Kreativitas (GIK) UGM',
+        points: [
+          'Completed an industry-based talent development program (~6 months) with direct mentorship from BUMN and multinational partner companies.',
+          'Completed a capstone project addressing a real industry challenge, receiving a certificate convertible into academic credit (SKS).',
+        ],
+      },
+      {
+        period: '2021–2022', title: 'Production Support, Section Heat Treatment', org: 'PT. Komatsu Undercarriage Indonesia in Cikarang',
+        points: [
+          'Responsible for the heat treatment process in heavy-equipment production, ensuring output met quality standards.',
+          'Coordinated with production and quality control teams to keep the process running smoothly.',
+          'Won 2nd place at the All Komatsu Indonesia Technical Olympic 2021.',
+        ],
+      },
+    ],
+
+    leadership: [
+      {
+        period: 'Dec 2022 – Oct 2025', title: 'Administrative Coordinator & Data Manager', org: 'IMAPRES Wonogiri',
+        points: ['Selected as an Outstanding Student representing Wonogiri Regency.', 'Managed data and reporting systems for 50+ active members.', 'Recognized as Best Coordinator.'],
+      },
+      {
+        period: 'Jan – Dec 2025', title: 'Manager of Environmental Division', org: 'BEM KEMA FMIPA Unpad',
+        points: ['Designed environmental programs in collaboration with several NGOs.', 'Organized a "Green Job" seminar with a speaker from Pertamina, attended by 300+ participants.'],
+      },
+      {
+        period: 'Jan - Dec2023', title: 'Chairman of the Commission, X MPA', org: 'Himatika FMIPA Unpad',
+        points: ['Chaired commission proceedings at the organization\'s highest deliberative assembly.'],
+      },
+      {
+        period: 'Apr – Jun 2024', title: 'Staff, Art Division', org: 'Mathematics Sport and Art 2024, Himatika FMIPA Unpad',
+        points: ['Supported the planning and execution of the Art Division\'s programs for the organization\'s flagship annual event.'],
+      },
+    ],
+
+    skills: [
+      { title: 'Analytical & Technical', items: ['Statistical Analysis', 'Python', 'Mathematical Modeling', 'Excel', 'GIS & Spatial Data', 'Quantitative Finance', 'SPSS'] },
+      { title: 'Leadership', items: ['Team Leadership', 'Stakeholder Engagement', 'Cross-Functional Coordination', 'Public Speaking'] },
+      { title: 'Communication', items: ['Technical Report Writing', 'Policy Brief Writing', 'Field Research (Survey, FGD, Interview)'] },
+    ],
+
+    awards: [
+      { icon: 'trophy', title: '1st Place, Putra Matematika 2023', org: 'Himatika FMIPA Unpad' },
+      { icon: 'trophy', title: '2nd Place, Olimpiade Pasar Modal', org: 'KSPM Universitas Jambi, JFI Fest 2024' },
+      { icon: 'trophy', title: '2nd Place, Komatsu Technical Olympic 2021', org: 'PT. Komatsu Undercarriage Indonesia' },
+      { icon: 'award', title: 'PKM Funding Recipient', org: 'Kemdikbud' },
+      { icon: 'star', title: 'Best Coordinator', org: 'IMAPRES Wonogiri' },
+      { icon: 'graduation-cap', title: 'Talent Development Program Certificate', org: 'GIK UGM convertible to academic credit' },
+    ],
+
+    init() {
+      setTimeout(() => { this.heroLoaded = true; lucide.createIcons(); }, 50);
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+        this.scrollPct = isFinite(pct) ? pct : 0;
+      });
+      this.$watch('darkMode', v => document.documentElement.classList.toggle('dark', v));
+      this.$watch('activeFilter', () => setTimeout(() => lucide.createIcons(), 30));
+    },
+
+    openProject(p) {
+      this.activeProject = p;
+      this.modalOpen = true;
+    },
+
+    copyText(text, label) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.toast = { visible: true, message: `${label} copied to clipboard` };
+        setTimeout(() => this.toast.visible = false, 2200);
+      });
+    },
+
+    sendMail() {
+      const subject = encodeURIComponent(`Message from ${this.form.name} — via Portfolio`);
+      const body = encodeURIComponent(`${this.form.message}\n\n— ${this.form.name} (${this.form.email})`);
+      window.location.href = `mailto:lspansa1304@gmail.com?subject=${subject}&body=${body}`;
+    },
+  };
+}
+</script>
+
+</body>
+</html>
