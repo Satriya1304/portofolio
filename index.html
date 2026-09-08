@@ -98,10 +98,10 @@
         <i data-lucide="sun" class="w-4 h-4" x-show="darkMode"></i>
         <i data-lucide="moon" class="w-4 h-4" x-show="!darkMode"></i>
       </button>
-      <a href="https://bit.ly/CV_CaturSatriyaWardoyo" target="_blank"
+      <button @click="cvModalOpen = true"
          class="hidden sm:flex items-center gap-2 bg-ink text-paper dark:bg-brassdark dark:text-darkbg px-5 py-2.5 text-sm font-medium hover:opacity-85 transition">
         <i data-lucide="file-down" class="w-4 h-4"></i> Download CV
-      </a>
+      </button>
     </div>
   </div>
 </nav>
@@ -146,9 +146,9 @@
       <a href="#contact" class="bg-ink text-paper dark:bg-brassdark dark:text-darkbg px-6 py-3 text-sm font-medium hover:opacity-85 transition">
         Get In Touch
       </a>
-      <a href="https://bit.ly/CV_CaturSatriyaWardoyo" target="_blank" class="flex items-center gap-2 border border-ink dark:border-darktext px-6 py-3 text-sm font-medium hover:border-brass dark:hover:border-brassdark transition">
-        <i data-lucide="file-down" class="w-4 h-4"></i> Download CV
-      </a>
+      <button @click="cvModalOpen = true" class="flex items-center gap-2 border border-ink dark:border-darktext px-6 py-3 text-sm font-medium hover:border-brass dark:hover:border-brassdark transition">
+        <i data-lucide="file-down" class="w-4 h-4"></i> View & Download CV
+      </button>
     </div>
 
     <!-- stats ledger row -->
@@ -389,24 +389,26 @@
       </div>
     </div>
 
-    <form @submit.prevent="sendMail()" class="border border-line dark:border-darkline p-7 space-y-5">
+    <form id="contactForm" @submit.prevent="sendMessage()" class="border border-line dark:border-darkline p-7 space-y-5">
       <div>
         <label class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted">Name</label>
-        <input x-model="form.name" required type="text" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark">
+        <input x-model="form.name" name="name" required type="text" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark">
       </div>
       <div>
         <label class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted">Your Email</label>
-        <input x-model="form.email" required type="email" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark">
+        <input x-model="form.email" name="email" required type="email" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark">
       </div>
       <div>
         <label class="text-xs uppercase tracking-wide text-muted dark:text-darkmuted">Message</label>
-        <textarea x-model="form.message" required rows="4" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark"></textarea>
+        <textarea x-model="form.message" name="message" required rows="4" class="w-full bg-transparent border-b border-line dark:border-darkline py-2 mt-1 focus:outline-none focus:border-brass dark:focus:border-brassdark"></textarea>
       </div>
-      <button type="submit" class="bg-ink text-paper dark:bg-brassdark dark:text-darkbg px-6 py-3 text-sm font-medium hover:opacity-85 transition">
-        Send Message
+      <button type="submit" :disabled="sending" class="bg-ink text-paper dark:bg-brassdark dark:text-darkbg px-6 py-3 text-sm font-medium hover:opacity-85 transition disabled:opacity-50">
+        <span x-show="!sending">Send Message</span>
+        <span x-show="sending">Sending...</span>
       </button>
-      <p class="text-xs text-muted dark:text-darkmuted">This button will open your email app with the message pre-filled.</p>
+      <p class="text-xs text-muted dark:text-darkmuted">Your message goes straight to my inbox — no email app needed.</p>
     </form>
+      
   </div>
 </section>
 
@@ -496,9 +498,11 @@ function portfolioApp() {
     scrollPct: 0,
     activeFilter: 'all',
     modalOpen: false,
+    cvModalOpen: false,
     activeProject: {},
     toast: { visible: false, message: '' },
     form: { name: '', email: '', message: '' },
+    sending: false,
 
     stats: [
       { value: '50+', label: 'Organization members managed' },
@@ -670,10 +674,29 @@ function portfolioApp() {
       });
     },
 
-    sendMail() {
-      const subject = encodeURIComponent(`Message from ${this.form.name} — via Portfolio`);
-      const body = encodeURIComponent(`${this.form.message}\n\n— ${this.form.name} (${this.form.email})`);
-      window.location.href = `mailto:lspansa1304@gmail.com?subject=${subject}&body=${body}`;
+    async sendMessage() {
+      if (this.sending) return;
+      this.sending = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/mrpgynao', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(document.getElementById('contactForm')),
+        });
+
+        if (res.ok) {
+          this.toast = { visible: true, message: 'Pesan berhasil terkirim, terima kasih!' };
+          this.form = { name: '', email: '', message: '' };
+        } else {
+          this.toast = { visible: true, message: 'Gagal mengirim, coba lagi atau email langsung.' };
+        }
+      } catch (err) {
+        this.toast = { visible: true, message: 'Gagal mengirim, coba lagi atau email langsung.' };
+      } finally {
+        this.sending = false;
+        setTimeout(() => this.toast.visible = false, 3000);
+      }
     },
   };
 }
